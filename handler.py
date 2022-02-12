@@ -37,7 +37,11 @@ def homepage(event, context):
 
     index_name = "product-index-variant-migrated"
 
+    subsegment = xray_recorder.begin_subsegment('annotations')
+    subsegment.put_annotation('action', 'elasticsearch')
+
     result = ElasticsearchGateway.search_index(index_name, query)
+    xray_recorder.end_subsegment()
 
     body = {
         "message": "Homepage Items",

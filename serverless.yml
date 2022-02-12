@@ -22,6 +22,9 @@ provider:
   environment:
     DYNAMODB_REQUEST_TABLE: ${self:provider.stage}-generic-request-table
     BETA_SYSTEM_URL: https://btmvusfbgk.execute-api.us-west-2.amazonaws.com/dev/
+    ELASTICSEARCH_HOST: ${ssm:/training/xray-serverless-demo/${self:provider.stage}/ELASTICSEARCH_HOST}
+    ELASTICSEARCH_USER: ${ssm:/training/xray-serverless-demo/${self:provider.stage}/ELASTICSEARCH_USER}
+    ELASTICSEARCH_PASSWORD: ${ssm:/training/xray-serverless-demo/${self:provider.stage}/ELASTICSEARCH_PASSWORD}
 
 functions:
   hello:

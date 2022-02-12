@@ -6,6 +6,7 @@ from aws_xray_sdk.core import patch_all
 
 from app.gateways.dynamodb_gateway import DynamodbGateway
 from app.gateways.http_gateway import HttpGateway
+from app.gateways.elasticsearch_gateway import ElasticsearchGateway
 
 patch_all()
 
@@ -28,9 +29,20 @@ def hello(event, context):
     return response
 
 def homepage(event, context):
+    query = {
+        "query": {
+            "match_all": {}
+        }
+    }
+
+    index_name = "product-index-variant-migrated"
+
+    result = ElasticsearchGateway.search_index(index_name, query)
+
     body = {
         "message": "Homepage Items",
-        "input": [{"name": "Vodka Premium", "price": 300}, {"name": "Cassava Prime", "price": 1000}]
+        "input": [{"name": "Vodka Premium", "price": 300}, {"name": "Cassava Prime", "price": 1000}],
+        "items_searched": result
     }
 
     response = {"statusCode": 200, "body": json.dumps(body)}

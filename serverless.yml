@@ -21,6 +21,7 @@ provider:
       Resource: "*"
   environment:
     DYNAMODB_REQUEST_TABLE: ${self:provider.stage}-generic-request-table
+    BETA_SYSTEM_URL: https://btmvusfbgk.execute-api.us-west-2.amazonaws.com/dev/
 
 functions:
   hello:

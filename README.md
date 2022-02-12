@@ -3,7 +3,9 @@
 python3 -m venv venv
 source venv/bin/activate
 
-pip install boto3
+pip install aws-xray-sdk
+pip install requests
+
 
 pip freeze > requirements.txt
 ```

@@ -15,8 +15,12 @@ provider:
       Action:
         - "xray:PutTraceSegments"
         - "xray:PutTelemetryRecords"
-      Resource:
-        - "*"
+      Resource: "*"
+    - Effect: "Allow"
+      Action: "dynamodb:*"
+      Resource: "*"
+  environment:
+    DYNAMODB_REQUEST_TABLE: ${self:provider.stage}-generic-request-table
 
 functions:
   hello:
@@ -37,3 +41,17 @@ plugins:
 custom:
   pythonRequirements:
     pythonBin: python3
+
+resources:
+  Resources:
+    GenericRequestTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: request_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: request_id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.DYNAMODB_REQUEST_TABLE}

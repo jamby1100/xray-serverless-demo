@@ -27,11 +27,12 @@ def hello(event, context):
 
     return response
 
-    # Use this code if you don't use the http event with the LAMBDA-PROXY
-    # integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
+def homepage(event, context):
+    body = {
+        "message": "Homepage Items",
+        "input": [{"name": "Vodka Premium", "price": 300}, {"name": "Cassava Prime", "price": 1000}]
     }
-    """
+
+    response = {"statusCode": 200, "body": json.dumps(body)}
+
+    return response

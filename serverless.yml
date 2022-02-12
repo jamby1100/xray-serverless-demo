@@ -30,6 +30,12 @@ functions:
       - http:
           path: /
           method: get
+  homepage:
+    handler: handler.homepage
+    events:
+      - http:
+          path: /home
+          method: get
 
 package:
   exclude:
